@@ -78,12 +78,12 @@ def build():
         backend_dir = pathlib.Path(__file__).resolve().parent
         project_root = backend_dir.parent
 
-        pnpm = shutil.which("pnpm")
-        if not pnpm:
-            raise BuildError("pnpm not found!")
+        #pnpm = shutil.which("pnpm")
+        #if not pnpm:
+        #    raise BuildError("pnpm not found!")
 
-        pnpm_install(project_root, pnpm)
-        pnpm_buildui(project_root, pnpm)
+        # pnpm_install(project_root, pnpm)
+        # pnpm_buildui(project_root, pnpm)
         copy_frontend(project_root)
         copy_copilot(project_root)
 

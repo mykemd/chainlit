@@ -699,6 +699,7 @@ class KeycloakOAuthProvider(OAuthProvider):
             "grant_type": "authorization_code",
             "redirect_uri": url,
         }
+        print("Exchanging token for code:", code, " with redirect url ", url)
         async with httpx.AsyncClient() as client:
             response = await client.post(
                 f"{self.base_url}/realms/{self.realm}/protocol/openid-connect/token",

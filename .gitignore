@@ -1,5 +1,5 @@
 build
-dist
+#dist
 
 *.egg-info
 
@@ -41,7 +41,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
+# dist
 dist-ssr
 *.local
 
@@ -61,3 +61,4 @@ dist-ssr
 
 backend/README.md
 backend/.dmypy.json
+pip.conf

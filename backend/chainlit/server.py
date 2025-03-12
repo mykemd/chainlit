@@ -197,6 +197,9 @@ copilot_build_dir = get_build_dir(os.path.join("libs", "copilot"), "copilot")
 
 app = FastAPI(lifespan=lifespan)
 
+from engineio.payload import Payload
+Payload.max_decode_packets = int(os.environ.get("CHAINLIT_PAYLOAD_PACKETS", "100"))
+
 sio = socketio.AsyncServer(cors_allowed_origins=[], async_mode="asgi")
 
 asgi_app = socketio.ASGIApp(
@@ -411,7 +414,13 @@ def get_user_facing_url(url: URL):
     if config_url.path.endswith("/"):
         config_url = config_url.replace(path=config_url.path[:-1])
 
-    return config_url.__str__() + url.path
+    config_url_path = str(config_url)
+    url_path = url.path
+    chainlit_root = os.environ.get("CHAINLIT_ROOT_PATH")
+    if chainlit_root and url_path.startswith(chainlit_root):
+        url_path = url_path[len(chainlit_root):]
+
+    return config_url_path + url_path
 
 
 @router.get("/auth/config")
